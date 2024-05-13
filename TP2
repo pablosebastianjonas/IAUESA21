@@ -1,0 +1,38 @@
+import random
+
+# Definir la función heurística para evaluar la distancia entre la posición actual y la posición deseada
+def heuristica(posicion_actual, posicion_deseada):
+    # En este ejemplo, la heurística simplemente calcula la diferencia absoluta entre las posiciones
+    distancia = abs(posicion_actual - posicion_deseada)
+    return distancia
+
+# Simular el proceso de búsqueda heurística para encontrar la posición óptima de montaje
+def busqueda_heuristica(posicion_inicial, posicion_deseada, tolerancia):
+    posicion_actual = posicion_inicial
+    while True:
+        # Evaluar la heurística para la posición actual
+        distancia_actual = heuristica(posicion_actual, posicion_deseada)
+        
+        # Verificar si la distancia actual cumple con la tolerancia
+        if distancia_actual <= tolerancia:
+            print("¡Pieza montada con éxito en la posición:", posicion_actual, "!")
+            break
+        
+        # Generar un movimiento aleatorio en una dirección
+        movimiento = random.choice([-1, 1])
+        
+        # Actualizar la posición actual según el movimiento generado
+        posicion_actual += movimiento
+        
+        # Imprimir el progreso de la búsqueda
+        print("Explorando posición:", posicion_actual, "- Distancia a la posición deseada:", distancia_actual)
+    
+    return posicion_actual
+
+# Parámetros de entrada
+posicion_inicial = 0  # Posición inicial del block sobre la cinta transportadora
+posicion_deseada = 10  # Posición deseada de montaje de la pieza
+tolerancia = 2  # Tolerancia permitida para la posición de montaje
+
+# Ejecutar la búsqueda heurística
+resultado = busqueda_heuristica(posicion_inicial, posicion_deseada, tolerancia)
